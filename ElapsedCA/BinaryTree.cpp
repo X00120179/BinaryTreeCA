@@ -16,21 +16,29 @@ void BinaryTree::preOrderTraversal() {
 // Private version of the destroy tree function.
 void BinaryTree::preOrderTraversal(TreeNode *node) {
 	if (node != NULL) { // If the tree is not empty.
-		// 'visit' the subtree root, then... print or add or subtract etc..
-		cout << node->city.getName() << " ";
-		cout << node->city.getLatitude() << "* N";
-		cout << node->city.getLongitude() << "* W" << endl;
-		cout << "\t\t<---  "; preOrderTraversal(node->leftChild);
-		cout << "\t\t--->  "; preOrderTraversal(node->rightChild); 
-	}
 
-	else if (node == NULL) {
-		cout << "";
-		cout << "null" << endl;
+		// 'visit' the subtree root, then... print or add or subtract etc..
+		cout << node->city << endl;
+
+		if (node->leftChild != NULL) { // If left child is not equal to NULL call the function.
+			cout << "\t\t(L) "; preOrderTraversal(node->leftChild);
+		}
+		else if (node->leftChild == NULL) { // If left child IS NULL print out null
+			cout << "";
+			cout << "\t\t(L) null" << endl;
+		}
+
+		if (node->rightChild != NULL) { // If right child is not equal to NULL call the function.
+			cout << "\t\t(R) "; preOrderTraversal(node->rightChild);
+		}
+		else if (node->rightChild == NULL) { // If right child IS NULL print out null
+			cout << "";
+			cout << "\t\t(R) null" << endl;
+		}
 	}
 
 	else {
-		cout << "Binary Tree does not exist!" << endl;
+		cout << "Binary Tree is empty!" << endl;
 	}
 }
 
@@ -126,3 +134,6 @@ void BinaryTree::destroyTree(TreeNode *node) {
 		delete node;
 	}
 }
+
+
+

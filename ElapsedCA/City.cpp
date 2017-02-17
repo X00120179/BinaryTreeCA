@@ -12,7 +12,7 @@ City::City(string nameIn, pair<double, double> GPSIn) {
 }
 
 ostream& operator <<(ostream& outputStream, const City& cityObj) {
-	outputStream << cityObj.name << "\n" << cityObj.GPS.first << "* N " << cityObj.GPS.second << "* W\n" << endl;
+	outputStream << cityObj.name << ": " << cityObj.GPS.first << "* N " << cityObj.GPS.second << "* W" << endl;
 	return outputStream;
 }
 
@@ -33,23 +33,4 @@ bool City::operator>=(const City& c1) const {
 	else {
 		return false;
 	}
-}
-
-string City::getName() {
-	return name;
-}
-
-//pair<double, double> City::getGPS() {
-//	pair<double, double> temp;
-//	temp.first = GPS.first;
-//	temp.second = GPS.second;
-//	return temp;
-//}
-
-double City::getLatitude() {
-	return GPS.first;
-}
-
-double City::getLongitude() {
-	return GPS.second;
 }
