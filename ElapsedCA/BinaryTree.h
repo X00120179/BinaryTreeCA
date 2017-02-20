@@ -9,11 +9,13 @@ public:
 	void preOrderTraversal();
 	void insert(City cityIn);
 	void destroyTree();
+	int countChildren();
 private:
 	// This will be used internally by the traversal above.
-	void preOrderTraversal(TreeNode *node);
+	void preOrderTraversal(TreeNode *node, string indent);
 	void insert(City cityIn, TreeNode *node);
 	void destroyTree(TreeNode *node);
+	int countChildren(TreeNode* node);
 	TreeNode *root;
 };
 

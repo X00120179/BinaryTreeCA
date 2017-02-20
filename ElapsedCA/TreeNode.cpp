@@ -12,8 +12,11 @@ TreeNode::TreeNode(City cityIn) {
 }
 
 bool TreeNode::isLeaf() {
-	if (leftChild == NULL && rightChild == NULL)
+
+	if (leftChild == NULL && rightChild == NULL) {
+		cout << "LEAF";
 		return true;
+	}
 	else
 		return false;
 }

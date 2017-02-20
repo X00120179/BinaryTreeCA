@@ -10,37 +10,41 @@ BinaryTree::BinaryTree() : root(NULL) {
 
 // Public version of the destroy tree function.
 void BinaryTree::preOrderTraversal() {
-	preOrderTraversal(root);
+	preOrderTraversal(root, "");
 }
 
 // Private version of the destroy tree function.
-void BinaryTree::preOrderTraversal(TreeNode *node) {
+void BinaryTree::preOrderTraversal(TreeNode *node, string indent) {
 	if (node != NULL) { // If the tree is not empty.
-
+		
 		// 'visit' the subtree root, then... print or add or subtract etc..
-		cout << node->city << endl;
+		cout << indent << node->city;
+		indent += "\t"; // Adds a tab before city name to show tree structure in print.
 
 		if (node->leftChild != NULL) { // If left child is not equal to NULL call the function.
-			cout << "\t\t(L) "; preOrderTraversal(node->leftChild);
+			preOrderTraversal(node->leftChild, indent);
 		}
 		else if (node->leftChild == NULL) { // If left child IS NULL print out null
-			cout << "";
-			cout << "\t\t(L) null" << endl;
+			cout << indent << "(L) Null" << endl;
 		}
 
 		if (node->rightChild != NULL) { // If right child is not equal to NULL call the function.
-			cout << "\t\t(R) "; preOrderTraversal(node->rightChild);
+			preOrderTraversal(node->rightChild, indent);
 		}
 		else if (node->rightChild == NULL) { // If right child IS NULL print out null
-			cout << "";
-			cout << "\t\t(R) null" << endl;
+			cout << indent << "(R) Null\n" << endl;
 		}
+
+		
+	
 	}
 
 	else {
 		cout << "Binary Tree is empty!" << endl;
 	}
 }
+
+
 
 
 /***************************************************************************************
@@ -135,5 +139,14 @@ void BinaryTree::destroyTree(TreeNode *node) {
 	}
 }
 
+int BinaryTree::countChildren()
+{
+	return countChildren(root);
+}
 
-
+int BinaryTree::countChildren(TreeNode* node)
+{
+	if (node == NULL)
+		return 0;
+	return 1 + countChildren(node->leftChild) + countChildren(node->rightChild);
+}
