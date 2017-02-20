@@ -19,20 +19,20 @@ void BinaryTree::preOrderTraversal(TreeNode *node, string indent) {
 		
 		// 'visit' the subtree root, then... print or add or subtract etc..
 		cout << indent << node->city;
-		indent += "\t"; // Adds a tab before city name to show tree structure in print.
+		indent += "|\t"; // Adds a tab before city name to show tree structure in print. Also adds a line downwards showing left and right nodes alignment.
 
 		if (node->leftChild != NULL) { // If left child is not equal to NULL call the function.
 			preOrderTraversal(node->leftChild, indent);
 		}
 		else if (node->leftChild == NULL) { // If left child IS NULL print out null
-			cout << indent << "(L) Null" << endl;
+			cout << indent << "Null" << endl;
 		}
 
 		if (node->rightChild != NULL) { // If right child is not equal to NULL call the function.
 			preOrderTraversal(node->rightChild, indent);
 		}
 		else if (node->rightChild == NULL) { // If right child IS NULL print out null
-			cout << indent << "(R) Null\n" << endl;
+			cout << indent << "Null" << endl;
 		}
 
 		
