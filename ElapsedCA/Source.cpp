@@ -6,19 +6,15 @@ using namespace std;
 
 int main() {
 
-	City beijing("BEIJING", pair<double, double>(39.9042, 116.4074));
-	City dublin("DUBLIN", pair<double, double>(53.3498, 6.2603));
-	City hongKong("HONG KONG", pair<double, double>(22.3964, 114.1095));
-	City london("LONDON", pair<double, double>(51.5074, 0.1278));
-	City losAngeles("LOS ANGELES", pair<double, double>(34.0522, 118.2437));
-	City newYork("NEW YORK", pair<double, double>(40.7128, 74.0059));
-	City madrid("MADRID", pair<double, double>(40.4168, 3.7038));	
-	City moscow("MOSCOW", pair<double, double>(55.7558, 37.6173));
-
-	//cout << dublin;
-	//cout << newYork;
-	//cout << london;
-	//cout << madrid;
+	City beijing("BEIJING", 39.9042, 116.4074);
+	City dublin("DUBLIN", 53.3498, 6.2603);
+	City hongKong("HONG KONG", 22.3964, 114.1095);
+	City london("LONDON", 51.5074, 0.1278);
+	City losAngeles("LOS ANGELES", 34.0522, 118.2437);
+	City newYork("NEW YORK", 40.7128, 74.0059);
+	City madrid("MADRID", 40.4168, 3.7038);	
+	City moscow("MOSCOW", 55.7558, 37.6173);
+	City test("TEST", 1.0, 2.0);
 
 	BinaryTree cityTree;
 
@@ -31,9 +27,20 @@ int main() {
 	cityTree.insert(newYork);
 	cityTree.insert(madrid);
 
+	cout << "ADS 2 C++ Elapsed CA.\nLee Healy - X00120179.\n\n\n\n\n";
+
 	cityTree.preOrderTraversal();
 
-	cout << "\nNumber of children: " << cityTree.countChildren() << endl;
+	cout << "\nNumber of cities: " << cityTree.countChildren() << ".\n" << endl;
+
+	cout << "Smallest city (by name) in the tree is: " << cityTree.findSmallest() << endl;
+
+	cityTree.removeCity(beijing);
+	cityTree.removeCity(test);
+
+	cityTree.preOrderTraversal();
+
+	cout << "\nNumber of cities: " << cityTree.countChildren() << ".\n" << endl;
 
 	system("pause");
 	return 0;

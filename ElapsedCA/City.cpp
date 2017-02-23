@@ -5,15 +5,26 @@ City::City() {
 
 }
 
-City::City(string nameIn, pair<double, double> GPSIn) {
+
+City::City(string nameIn, double GPSFirstIn, double GPSSecondIn) {
 	name = nameIn;
-	GPS.first = GPSIn.first; // X Co-ordinate a.k.a Latitude
-	GPS.second = GPSIn.second; // Y Co-ordinate a.k.a Longitude
+	GPS.first = GPSFirstIn; // X Co-ordinate a.k.a Latitude
+	GPS.second = GPSSecondIn; // Y Co-ordinate a.k.a Longitude
 }
+
 
 ostream& operator <<(ostream& outputStream, const City& cityObj) {
 	outputStream << cityObj.name << ": " << cityObj.GPS.first << "* N " << cityObj.GPS.second << "* W" << endl;
 	return outputStream;
+}
+
+
+bool City::operator==(const City& c1) const {
+	if (this->name == c1.name) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 
@@ -25,6 +36,7 @@ bool City::operator<(const City& c1) const {
 		return false;
 	}
 }
+
 
 bool City::operator>=(const City& c1) const {
 	if (this->name.compare(c1.name) > 0) {
