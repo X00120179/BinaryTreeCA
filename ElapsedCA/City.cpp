@@ -1,5 +1,6 @@
 #pragma once
 #include "City.h"
+#include <queue>
 
 City::City() {
 
@@ -38,7 +39,7 @@ bool City::operator<(const City& c1) const {
 }
 
 
-bool City::operator>=(const City& c1) const {
+bool City::operator>(const City& c1) const {
 	if (this->name.compare(c1.name) > 0) {
 		return true;
 	}
@@ -46,3 +47,18 @@ bool City::operator>=(const City& c1) const {
 		return false;
 	}
 }
+
+
+double City::getLongitude() {
+	return GPS.first;
+}
+
+double City::getLatitude() {
+	return GPS.second;
+}
+
+string City::getName() {
+	return name;
+}
+
+

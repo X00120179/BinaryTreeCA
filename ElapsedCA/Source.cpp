@@ -14,7 +14,6 @@ int main() {
 	City newYork("NEW YORK", 40.7128, 74.0059);
 	City madrid("MADRID", 40.4168, 3.7038);	
 	City moscow("MOSCOW", 55.7558, 37.6173);
-	City test("TEST", 1.0, 2.0);
 
 	BinaryTree cityTree;
 
@@ -35,12 +34,18 @@ int main() {
 
 	cout << "Smallest city (by name) in the tree is: " << cityTree.findSmallest() << endl;
 
-	cityTree.removeCity(beijing);
-	cityTree.removeCity(test);
-
+	//cityTree.removeCity(dublin);
 	cityTree.preOrderTraversal();
 
 	cout << "\nNumber of cities: " << cityTree.countChildren() << ".\n" << endl;
+
+
+	cout << "CALCULATING DISTANCE FUNCTION NOW" << endl;
+	cityTree.compareCities(dublin);
+
+
+
+
 
 	system("pause");
 	return 0;
