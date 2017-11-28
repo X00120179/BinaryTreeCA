@@ -1,0 +1,20 @@
+Analysis file for ADS C++ Elapsed CA due Wednesday 22 March.
+
+Lee Healy X00120179
+
+During development of this project I ran into some problems thats I analysed and fixed.
+
+One of the problems was searching for a city by its GPS Co-ordinates. 
+The tree itself is balanced by name so you cannot tell the searchGPS function to go left if less than the root or to go right if greater than the root.
+Co-ordinates in both sides of the tree could be less than or greater than.
+Due to this problem instead of going left or right through the tree I had to use brute force on the tree and this meant I had to search every node regardless.
+
+Co-ordinates can only be stored on data structures such as a K-D Tree or a Quad Tree.
+
+A Quad Tree graphs 2 points over a positive and negative X,Y axis.
+The axis' are known as regions which go by NE, NW, SE, SW into a quad tree.
+When more points are added the squares on the graph are recursively broken into smaller squares for the point to contain it's own square.
+The points are then given a square each to let the system pinpoint exactly where the points lie.
+
+K-D Trees can be used for as many dimensions that you need. K represents the number of dimensions. Ex. 3-D, 6-D 10-D etc.
+K-D trees can further on be broken into a binary tree.

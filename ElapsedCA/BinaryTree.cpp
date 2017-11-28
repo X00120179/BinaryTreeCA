@@ -1,4 +1,5 @@
-﻿#include "BinaryTree.h"
+﻿// Lee Healy X00120179
+#include "BinaryTree.h"
 #include "TreeNode.h"
 #include <iostream>
 #include <vector>
@@ -6,16 +7,21 @@
 #include <queue>
 using namespace std;
 
+
+
 // Constructor
 BinaryTree::BinaryTree() {
 	root = NULL;
 }
 
 
+
 // Public version of the destroy tree function.
 void BinaryTree::preOrderTraversal() {
 	preOrderTraversal(root, "");
 }
+
+
 
 // Private version of the destroy tree function.
 // Pretty prints similar to the 'tree' command on command prompt.
@@ -41,10 +47,9 @@ void BinaryTree::preOrderTraversal(TreeNode *node, string indent) {
 		}
 	}
 	else {
-		cout << "Binary Tree is empty!" << endl;
+		cout << "Binary Tree is empty!" << endl; // Else tree is empty.
 	}
 }
-
 
 
 
@@ -72,6 +77,8 @@ void BinaryTree::insert(City& cityIn) {
 		root->rightChild = NULL; // Set right child of root to NULL.
 	}
 }
+
+
 
 // Private version of the insert function.
 void BinaryTree::insert(City& cityIn, TreeNode *node) {
@@ -122,6 +129,7 @@ void BinaryTree::search(City& cityIn) {
 }
 
 
+
 // Private search function.
 // Search the tree to see if a node(city) exists.
 void BinaryTree::search(City& cityIn, TreeNode *node) {
@@ -129,23 +137,73 @@ void BinaryTree::search(City& cityIn, TreeNode *node) {
 		cout << "City not found..." << endl;
 	}
 	else {
-		if (node->city == cityIn) { // If current node's city is equal to the city we want.
-			cout << "Found city: " << cityIn << endl;
+		if (node->city == cityIn) { // If current node's city is equal to the city we searched for.
+			cout << "Found city: " << cityIn.getName() << ": " << cityIn.getLatitude() << "* N " << cityIn.getLongitude() << "* W in the tree!" << endl;
 		}
 		else {
-			if (node->city < cityIn && node->leftChild != NULL) { // If city is less than root/current node check left subtree (if it has a left side.)
-				search(cityIn, node->rightChild); // Recursively call search for the right side.
-			}
-			else if (node->city > cityIn && node->rightChild != NULL){ // If city is greater than root/current node check right subtree (if it has a right side.)
+			if (node->city > cityIn && node->leftChild != NULL) { // If city is less than root/current node check left subtree (if it has a left side.)
 				search(cityIn, node->leftChild); // Recursively call search for the left side.
 			}
+			else if (node->city < cityIn && node->rightChild != NULL) { // If city is greater than root/current node check right subtree (if it has a right side.)
+				search(cityIn, node->rightChild); // Recursively call search for the right side.
+			}
+		}
+	}
+}
+
+
+
+// Search for a city via its name.
+void BinaryTree::searchName(string cityNameIn) {
+	searchName(cityNameIn, root);
+}
+
+void BinaryTree::searchName(string cityNameIn, TreeNode *node) {
+	if (node == NULL) { // Nothing in the tree to find.
+		cout << "City not found..." << endl;
+	}
+	else {
+		if (node->city.getName() == cityNameIn) { // If current node's city name is equal to the city name we searched for.
+			cout << "Matched city with the name: " << cityNameIn << " with: "<< node->city.getName() << ": " << node->city.getLatitude() << "* N " << node->city.getLongitude() << "* W in the tree!" << endl;
+		}
+		else {
+			if (cityNameIn < node->city.getName() && node->leftChild != NULL) { // If city name is less than the root/current nodes name check left subtree (if it has a left side.)
+				searchName(cityNameIn, node->leftChild); // Recursively call search for the left side.
+			}
+			else if (cityNameIn > node->city.getName() && node->rightChild != NULL) { // If city name is greater than the root/current nodes name check right subtree (if it has a right side.)
+				searchName(cityNameIn, node->rightChild); // Recursively call search for the right side.
+			}
+		}
+	}
+}
+
+
+
+// Search for a city via its co-ordinates.
+void BinaryTree::searchGPS(double firstGPS, double secondGPS) {
+	searchGPS(firstGPS, secondGPS, root);
+}
+
+
+
+// Can't say if greater go right or if less then go left so we must search every node regardless instead.
+void BinaryTree::searchGPS(double firstGPS, double secondGPS, TreeNode *node) {
+	if (node != NULL) {
+		// If the lat and long match, we've completed the search.
+		if (node->city.getLatitude() == firstGPS && node->city.getLongitude() == secondGPS) {
+			cout << "Matched city with co-ordinates: " << firstGPS << "* N " << secondGPS << "*W with: " << node->city.getName() << ": " << node->city.getLatitude() << "*N " << node->city.getLongitude() << "* W in the tree!" << endl;
+		}
+		else {
+			searchGPS(firstGPS, secondGPS, node->leftChild); // Else search left side of tree for match.
+			searchGPS(firstGPS, secondGPS, node->rightChild); // Else search right side of tree for match.
 		}
 	}
 
 }
 
 
-/***************************************************************************************
+
+/*****************************************************************************************************
 *    The following code has been extracted and changed to fit my project and used from the following:
 *
 *	 Title: <Binary Search Trees - Remove Node Function - C++>
@@ -154,7 +212,7 @@ void BinaryTree::search(City& cityIn, TreeNode *node) {
 *	 Type: <Source Code>
 *    Availability: <https://www.youtube.com/watch?v=ROtgyI64kGw>
 *
-***************************************************************************************/
+******************************************************************************************************/
 
 // Public findSmallest() function.
 // Calls the private version of this function.
@@ -162,6 +220,8 @@ void BinaryTree::search(City& cityIn, TreeNode *node) {
 City BinaryTree::findSmallest() {
 	return findSmallest(root); // Starts the private function at the root node.
 }
+
+
 
 // Private findSmallest() function.
 // Used for removal of a node later.
@@ -189,6 +249,8 @@ City BinaryTree::findSmallest(TreeNode *node) {
 void BinaryTree::removeCity(City& city) {
 	removeCity(city, root);
 }
+
+
 
 // Private removeCity() function.
 void BinaryTree::removeCity(City& cityIn, TreeNode *node) {
@@ -225,6 +287,7 @@ void BinaryTree::removeCity(City& cityIn, TreeNode *node) {
 }
 
 
+
 // Function to delete the root of the tree and replace it with the smallest value from the right subtree.
  /*
   * Node we want to remove is *match.
@@ -254,14 +317,14 @@ void BinaryTree::removeRootMatch() {
 			root = root->rightChild; // Pointing current root to right side.
 			delPtr->rightChild = NULL; // Disconnects old rood from the tree.
 			delete delPtr; // Deletes the old root.
-			cout << "The root node with " << rootKey << "was deleted." << " The new root contains the city: " << root->city << endl;
+			cout << "The root node with " << rootKey.getName() << " was deleted." << " The new root contains the city: " << root->city << endl;
 		}
 		// Only has a left child.
 		else if (root->leftChild != NULL && root->rightChild == NULL) {
 			root = root->leftChild; // Pointing current root to left side.
 			delPtr->leftChild = NULL; // 
 			delete delPtr;
-			cout << "The root node with " << rootKey << "was deleted." << " The new root contains the city: " << root->city << endl;
+			cout << "The root node with " << rootKey.getName() << " was deleted." << " The new root contains the city: " << root->city << endl;
 		}
 
 		// Case 2 - Root node has 2 children.
@@ -270,13 +333,14 @@ void BinaryTree::removeRootMatch() {
 			removeCity(smallestInRightSubtree, root); 
 			root->city = smallestInRightSubtree; // Root node is now the smallest node from the right side.
 			// ^^ This keeps the greater/less than tree structure intact.
-			cout << "The root: " << rootKey << "was overwritten with the city: " << root->city << endl;
+			cout << "The root: " << rootKey.getName() << " was overwritten with the city: " << root->city << endl;
 		}
 	}
 	else { // Tree is empty
 		cout << "Cannot remove root. The tree is empty\n" << endl;
 	}
 }
+
 
 
 // Removes the node matching the node specified to be deleted.
@@ -296,7 +360,7 @@ void BinaryTree::removeMatch(TreeNode *node, TreeNode *match, bool left) {
 				node->rightChild = NULL;
 			}
 			delete delPtr;
-			cout << "The node containing the city: " << matchKey << "was removed.\n" << endl;
+			cout << "The node containing the city: " << matchKey.getName() << " was removed.\n" << endl;
 		}
 
 		// Case 1 - Node we want to delete has 1 child.
@@ -311,7 +375,7 @@ void BinaryTree::removeMatch(TreeNode *node, TreeNode *match, bool left) {
 			match->rightChild = NULL;
 			delPtr = match;
 			delete delPtr;
-			cout << "The node containing city: " << matchKey << "was removed.\n" << endl;
+			cout << "The node containing city: " << matchKey.getName() << " was removed.\n" << endl;
 		}
 
 		// If the node we want to delete has 1 child and it's on the left side.
@@ -325,7 +389,7 @@ void BinaryTree::removeMatch(TreeNode *node, TreeNode *match, bool left) {
 			match->leftChild = NULL;
 			delPtr = match;
 			delete delPtr;
-			cout << "The node containing city: " << matchKey << "was removed.\n" << endl;
+			cout << "The node containing city: " << matchKey.getName() << " was removed.\n" << endl;
 		}
 
 		// Matching node has 2 children.
@@ -344,57 +408,61 @@ void BinaryTree::removeMatch(TreeNode *node, TreeNode *match, bool left) {
 }
 
 
+
 /*
-1.) Pass in a city c1.
+1.) Pass in a city c1 and the limit of which you want to return cities within that limit.
 2.) Calculate distance between c1 and first node.
 3.) Put the answer(distance) and the nodes name into priority_queue< pair<string cityName, double distance>>.
 4.) Move onto next node and do the exact same. (inorder traversal compare from left -> right.)
 5.) When all nodes have been visited stop.
-6.) Print out priority_queue.
-7.) We want it display all the nodes from shortest distance to c1 to furthest.
+6.) Print out the cities in the priority_queue.
+7.) We want it display all the nodes from shortest distance to c1 to furthest within the limit.
 8.) Ex. C1 Dublin: { N1 Kildare 20Km, N2 Cork 387Km, N3 Los Angeles 7987Km}
 */
-
-void BinaryTree::compareCities(City& cityIn) {
-	compareCities(cityIn, root);
+void BinaryTree::compareCities(City& cityIn, double limit) {
+	compareCities(cityIn, limit, root);
 }
 
-void BinaryTree::compareCities(City& c1, TreeNode *node) {
-	priority_queue<pair<string, double>> distances;
 
-	addToQueue(c1, node, distances);
 
-	/*while(!pq.empty()){
-        int temp=pq.top();
-        pq.pop();
-        cout<<temp<<endl;
-    }*/
+void BinaryTree::compareCities(City& cityIn, double limit, TreeNode *node) {
+	priority_queue<pair<string, double>, vector<pair<string, double>>, DoublePriority> distances; // Create queue.
+	addToQueue(cityIn, node, distances); // Call recursive function that adds all the cities to the queue.
 
 	// Display queue now.
-	while (!distances.empty()) {
-		distances.pop();
+	cout << "Cities closest to " << cityIn.getName() << " within " << limit << " kilometres is: " << endl;
+	while (!distances.empty() && distances.top().second <= limit) { // While not empty and less than or equal to the distance limit.
+		cout << "\t" << (distances.top()).first << ":\t" << (distances.top()).second << "Km" << endl;
+		distances.pop(); // Pop current city off the queue to get to the next city.
 	}
 }
+
 
 
 /*
 1.) Takes in a city, a comparing city node, and queue< pair<string double>>.
-2.) In order of the tree it calls the calcDistance() function.
-3.) calcDistance() function creates and returns creates a pair<string double>.
-4.) This pair<string double> is added/pushed to the queue of type pair.
+2.) In order traversal of the tree it calls the calcDistance() function.
+3.) calcDistance() function creates and returns pair<string double>.
+4.) This pair<string double> is added/pushed to the queue of type priority_queue< pair <string, double>>.
 5.) Does this with every node in the tree in order.
 */
-void BinaryTree::addToQueue(City& c1, TreeNode *node, priority_queue<pair<string, double>> distances) {
+void BinaryTree::addToQueue(City& cityIn, TreeNode *node, priority_queue<pair<string, double>, vector<pair<string, double>>, DoublePriority>& distances) {
 	if (node != NULL) {
-		// Traverses in order.
-		addToQueue(c1, node, distances); // Recursive call.
+		if (calcDistance(cityIn, node).second != 0) { // Originally printed out the comparing city with itself (e.g. compared Dublin with Dublin) with the distance of 0 - This eliminates that.
+			distances.push(calcDistance(cityIn, node)); // Pushing pair onto queue.
+		}
+		//cout << "Added " << node->city.getName() << " to queue." << endl; // Print out for testing to see what was added to the queue.
 
-		distances.push(calcDistance(c1, node));
-		cout << "Added " << node->city.getName() << " to queue." << endl;
+		if (node->leftChild != NULL) { // If city is less than root/current node check left subtree (if it has a left side.)
+			addToQueue(cityIn, node->leftChild, distances); // Recursively call addToQueue down left side.
+		}
 
-		addToQueue(c1, node, distances); // Recursive call.
+		if (node->rightChild != NULL) { // If city is greater than root/current node check right subtree (if it has a right side.)
+			addToQueue(cityIn, node->rightChild, distances); // Recursively call addToQueue down right side.
+		}
 	}
 }
+
 
 
 /*
@@ -403,10 +471,10 @@ void BinaryTree::addToQueue(City& c1, TreeNode *node, priority_queue<pair<string
 3.) Called by make queue function.
 4.) Queue adds in all the pairs.
 */
-pair<string, double> BinaryTree::calcDistance(City& c1, TreeNode *node) {
-	double long2 = c1.getLongitude();
+pair<string, double> BinaryTree::calcDistance(City& cityIn, TreeNode *node) {
+	double long2 = cityIn.getLongitude();
 	double long1 = node->city.getLongitude();
-	double lat2 = c1.getLatitude();
+	double lat2 = cityIn.getLatitude();
 	double lat1 = node->city.getLatitude();
 
 	double distance = distanceEarth(lat1, long1, lat2, long2);
@@ -421,34 +489,28 @@ pair<string, double> BinaryTree::calcDistance(City& c1, TreeNode *node) {
 
 
 
-
-
-
-
-// Public version of the destroy tree function.
-void BinaryTree::destroyTree() {
-	destroyTree(root);
+// Public maxHeight() function.
+int BinaryTree::maxHeight() {
+		return (maxHeight(root) - 1); // -1 as private function returns the number of nodes and not the paths inbetween them, this corrects it.
 }
 
-// Private version of the destory tree function.
-void BinaryTree::destroyTree(TreeNode *node) {
-	if (node != NULL) {
-		// Point the node to both sides of the root.
-		destroyTree(node->leftChild);
-		destroyTree(node->rightChild);
-		// Node now points at both sides of the root node.
-		// Deleting the r0oot node will then delete everything as it is hierarchical
-		delete node;
+
+
+// Return the number of nodes along the longest path from
+// the root node down to the deepest leaf node.
+// Only returns the number of nodes and not the paths in between them.
+int BinaryTree::maxHeight(TreeNode* node) {
+	if (node == NULL) { 
+		return 0; // if node is null it has no height.
 	}
-}
+	else {
+		int leftHeight = maxHeight(node->leftChild); // Go down the left side of the tree, count the nodes, store in leftHeight.
+		int rightHeight = maxHeight(node->rightChild); // Go down the right side of the tree, count the nodes, store in rightHeight.
 
-int BinaryTree::countChildren() {
-	return countChildren(root);
-}
-
-int BinaryTree::countChildren(TreeNode* node) {
-	if (node == NULL)
-		return 0;
-	return 1 + countChildren(node->leftChild) + countChildren(node->rightChild);
-
+		// We want to return the larger one.
+		if (leftHeight > rightHeight)
+			return(leftHeight + 1); // +1 here as the function will not increment otherwise and the whole function would be pointless then.
+		else 
+			return(rightHeight + 1); // +1 here also for incrementing number of nodes on the right side.
+	}
 }

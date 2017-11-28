@@ -1,3 +1,4 @@
+// Lee Healy X00120179
 /***************************************************************************************
 *    The following code has been directly used from the following:
 *
@@ -17,10 +18,14 @@ double deg2rad(double deg) {
 	return (deg * pi / 180);
 }
 
+
+
 //  This function converts radians to decimal degrees
 double rad2deg(double rad) {
 	return (rad * 180 / pi);
 }
+
+
 
 // Calculation function.
 double distanceEarth(double lat1d, double lon1d, double lat2d, double lon2d) {
